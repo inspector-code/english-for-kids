@@ -76,12 +76,11 @@ const jsLoader = () => {
 }
 
 module.exports = {
-  mode: 'development',
   entry: {
-    main: ['@babel/polyfill', path.resolve(__dirname, 'src/assets/js/index.js')],
+    main: ['@babel/polyfill', path.resolve(__dirname, 'src/index.js')],
   },
   output: {
-    filename: filename('js'),
+    filename: isDev ? '[name].js' : '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
