@@ -26,8 +26,6 @@ const optimization = () => {
   return config
 }
 
-const filename = (ext) => (isDev ? `assets/${ext}/[name].${ext}` : `assets/${ext}/[name].[hash].${ext}`)
-
 const cssLoaders = (...extra) => {
   const loaders = [
     {
@@ -40,9 +38,6 @@ const cssLoaders = (...extra) => {
     },
     {
       loader: 'css-loader',
-      options: {
-        url: false,
-      },
     },
   ]
 
@@ -116,7 +111,7 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: filename('css'),
+      filename: isDev ? '[name].css' : '[name].[hash].css',
     }),
   ],
   module: {
