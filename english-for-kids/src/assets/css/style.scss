@@ -20,6 +20,66 @@
   max-width: 1160px;
   margin: 0 auto;
 
+  .header {
+
+    &__menu {
+
+      &-button {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: red;
+        z-index: 2000;
+      }
+
+      &-burger {
+        opacity: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(41, 41, 41, 0.6);
+        z-index: 1000;
+        transition: .5s;
+
+        &-hide {
+          opacity: 0;
+
+          .header__menu-burger__box {
+            left: -100%;
+          }
+        }
+
+        &__box {
+          position: fixed;
+          left: 0;
+          width: 270px;
+          height: 100%;
+          background: lightgray;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: .7s;
+
+          &-list {
+
+            &-item {
+              font-size: 1.3rem;
+              margin: 15px 0;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    &__mode-button {
+
+    }
+  }
+
   .game-title {
     font-size: 25px;
     padding: 0 10px;
@@ -29,56 +89,75 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    perspective: 1000px;
 
-    .card {
-      position: relative;
+    .card-container {
       width: 250px;
       height: 250px;
       margin: 20px 20px;
       cursor: pointer;
-      border-radius: 20px;
-      box-shadow: 0 0 2px rgba(0,0,0,0.4);
-      transition: all 0.5s ease;
-      transform-style: preserve-3d;
+      perspective: 1000px;
 
-      &:hover {
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        transform: rotateY(180deg);
+      &:hover .card .front, &:hover .card .back {
+        box-shadow: 0 0 7px rgba(0,0,0,0.4);
       }
 
-      .front, .back {
-        position: absolute;
-        backface-visibility: hidden;
-        background: white;
+      .card {
+        position: relative;
         width: 100%;
         height: 100%;
-        left: 0;
-        top: 0;
-        transition: all 0.5s ease;
-      }
+        transform-style: preserve-3d;
+        transition: all 1s ease;
 
-      .back {
-        transform: rotateY(180deg);
-      }
+        &-flip {
+          transform: rotateY(180deg);
 
-      &__img {
-        height: 180px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-      }
+          i {
+            transform: rotate(180deg) !important;
+          }
+        }
 
-      &__info {
-        height: 70px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+        .front, .back {
+          position: absolute;
+          backface-visibility: hidden;
+          background: white;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 0 2px rgba(0,0,0,0.4);
+          transition: .3s;
+        }
 
-        &-item {
-          line-height: 0;
+        .back {
+          transform: rotateY(180deg);
+        }
+
+        &__img {
+          height: 180px;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        &__info {
+          height: 70px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 20px;
+
+          &-item {
+            line-height: 0;
+
+            i {
+              transform: rotate(0deg);
+              transition: .3s;
+
+              &:hover {
+                opacity: .6;
+              }
+            }
+          }
         }
       }
     }
   }
-
 }
