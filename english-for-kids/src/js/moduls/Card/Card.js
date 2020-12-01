@@ -1,6 +1,6 @@
 import create from '../../helpers/create'
 import { cards } from '../../data/cards'
-import { cardType } from '../../helpers/constans'
+import { cardType, gameType } from '../../helpers/constans'
 
 export default class Card {
   constructor({
@@ -12,12 +12,13 @@ export default class Card {
     image = null,
     sound = null,
   }, type) {
+    this.gameMode = gameType.train
     this.cardType = type
     this.cardCategory = categoryName || category
     let backSide = null
     let rollButton = null
-    const imageElement = create('div', 'card__img')
-    imageElement.style.background = `center / cover no-repeat url(${categoryImage || image})`
+    this.imageElement = create('div', 'card__img')
+    this.imageElement.style.background = `center / cover no-repeat url(${categoryImage || image})`
 
     if (this.cardType === cardType.categoryCard) {
       this.categoryCardsCount = `${cards.filter((i) => i.category === this.cardCategory).length} cards`
@@ -28,7 +29,7 @@ export default class Card {
       this.word = word
       this.translation = translation
 
-      const backImg = imageElement.cloneNode(true)
+      const backImg = this.imageElement.cloneNode(true)
       backSide = create('div', 'back', [
         backImg,
         create('div', 'card__info',
@@ -37,7 +38,7 @@ export default class Card {
     }
 
     const frontSide = create('div', 'front', [
-      imageElement,
+      this.imageElement,
       create('div', 'card__info', [
         create('div', 'card__info-title', categoryName || this.word),
         create('div', 'card__info-item', this.categoryCardsCount || rollButton),
@@ -47,10 +48,12 @@ export default class Card {
     this.element = create('div', 'card-container', card)
 
     if (this.cardType === cardType.gameCard) {
-      frontSide.onclick = () => {
+      frontSide.addEventListener('click', () => {
         const audio = new Audio(sound)
-        audio.play()
-      }
+        if (this.gameMode === gameType.train) {
+          audio.play()
+        }
+      })
 
       if (rollButton) {
         rollButton.onclick = (e) => {
@@ -63,5 +66,17 @@ export default class Card {
         card.classList.remove('card-flip')
       }
     }
+  }
+
+  changeGameMode() {
+    if (this.gameMode === gameType.train) {
+      this.gameMode = gameType.play
+    } else {
+      this.gameMode = gameType.train
+    }
+  }
+
+  hideControls() {
+    this.imageElement.classList.toggle('card__img-hide')
   }
 }

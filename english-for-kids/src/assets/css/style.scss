@@ -150,16 +150,22 @@
         }
 
         &__img {
-          height: 180px;
-          border-bottom: 1px solid rgba(0,0,0,0.1);
+          height: 80%;
+          transition: .3s;
+          z-index: 20;
+
+          &-hide {
+            height: 100%;
+          }
         }
 
         &__info {
-          height: 70px;
+          height: 20%;
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 20px;
+          border-top: 1px solid rgba(0,0,0,0.1);
 
           &-item {
             line-height: 0;

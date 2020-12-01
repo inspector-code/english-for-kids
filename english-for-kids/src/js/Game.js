@@ -9,6 +9,7 @@ export default class Game {
     this.categoriesCards = []
     this.gameCards = []
     this.header = new Header(categories)
+    console.log(this.header)
     this.menuItems = this.header.menuElements
     this.container = create('div', 'game-container', [
       this.header.element,
@@ -36,6 +37,13 @@ export default class Game {
         this.appendCards(menuItem)
       })
     })
+
+    this.header.gameModeButton.onclick = () => {
+      this.gameCards.forEach((i) => {
+        i.changeGameMode()
+        i.hideControls()
+      })
+    }
   }
 
   appendCards = (category) => {
@@ -49,10 +57,6 @@ export default class Game {
         }
       })
     }
-  }
-
-  modeChanger() {
-
   }
 
   init() {
