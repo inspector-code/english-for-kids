@@ -1,22 +1,21 @@
 import create from './helpers/create'
 import { categories, cards } from './data/cards'
 import Card from './moduls/Card/Card'
-import { cardType } from './helpers/constans'
+import { cardType, mainPage } from './helpers/constans'
 import Header from './moduls/Header/Header'
 
 export default class Game {
   constructor() {
+    this.categoriesCards = []
+    this.gameCards = []
+    this.header = new Header(categories)
+    this.menuItems = this.header.menuElements
     this.container = create('div', 'game-container', [
-      Header(this.appendCards),
+      this.header.element,
       create('div', 'game-title', 'Train & Play'),
     ])
     this.gameField = create('div', 'game-field', null, this.container)
 
-    this.categoriesCards = []
-    this.gameCards = []
-  }
-
-  generateCard() {
     cards.forEach((i) => {
       const card = new Card(i, cardType.gameCard)
       this.gameCards.push(card)
@@ -26,14 +25,22 @@ export default class Game {
       const card = new Card(i, cardType.categoryCard)
       this.categoriesCards.push(card)
       card.element.onclick = () => {
+        this.header.activeMenuItem(card.cardCategory)
         this.appendCards(card.cardCategory)
       }
+    })
+
+    this.menuItems.forEach((i) => {
+      const { menuItem, element } = i
+      element.addEventListener('click', () => {
+        this.appendCards(menuItem)
+      })
     })
   }
 
   appendCards = (category) => {
     this.gameField.innerHTML = ''
-    if (!category || (category === 'Main Page')) {
+    if (!category || (category === mainPage)) {
       this.categoriesCards.forEach((i) => this.gameField.append(i.element))
     } else {
       this.gameCards.forEach((item) => {
@@ -44,8 +51,11 @@ export default class Game {
     }
   }
 
+  modeChanger() {
+
+  }
+
   init() {
-    this.generateCard()
     console.log(this.gameCards)
     console.log(this.categoriesCards)
     this.appendCards()

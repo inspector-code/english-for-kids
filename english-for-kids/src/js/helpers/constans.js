@@ -1,11 +1,11 @@
-const cardType = {
+export const cardType = {
   categoryCard: 'category',
   gameCard: 'gameCard',
 }
 
-const gameType = {
+export const gameType = {
   train: 'train',
   play: 'play',
 }
 
-export { cardType, gameType }
+export const mainPage = 'Main Page'
