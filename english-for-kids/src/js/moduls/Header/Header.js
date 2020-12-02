@@ -1,18 +1,20 @@
 import create from '../../helpers/create'
 import { mainPage } from '../../helpers/constans'
 import burgerButtonElement from './burger-button/burger-button'
+import modeButtonElement from './mode-button/mode-button'
 
 export default class Header {
   constructor(categories) {
     const { burgerButton, burgerButtonContainer } = burgerButtonElement()
+    const { modeCheckbox, modeSwitcherElement } = modeButtonElement()
     const menuList = create('ul', 'header__menu-burger__box-list')
     const burgerMenu = create('div', 'header__menu-burger header__menu-burger-hide',
       create('div', 'header__menu-burger__box', menuList))
     const headerMenuContainer = create('div', 'header__menu', [burgerButtonContainer, burgerMenu])
     const menuItems = ['Main Page']
 
-    this.gameModeButton = create('div', 'header__mode-button')
-    this.element = create('div', 'header', [headerMenuContainer, this.gameModeButton])
+    this.gameModeButton = modeCheckbox
+    this.element = create('div', 'header', [headerMenuContainer, modeSwitcherElement])
     this.menuElements = []
 
     categories.forEach((i) => menuItems.push(i.categoryName))

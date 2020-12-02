@@ -35,10 +35,10 @@ export default class Game {
       })
     })
 
-    this.header.gameModeButton.onclick = () => {
-      this.gameCards.forEach((i) => {
-        i.changeGameMode()
-        i.hideControls()
+    this.header.gameModeButton.onchange = () => {
+      this.gameCards.forEach((card) => {
+        card.changeGameMode()
+        card.hideControls()
       })
     }
   }

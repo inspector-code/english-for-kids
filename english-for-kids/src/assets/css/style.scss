@@ -31,6 +31,7 @@ body {
   .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 30px 20px;
 
     &__menu {
@@ -43,7 +44,7 @@ body {
         &-active {
           position: fixed;
           left: 20px;
-          top: 20px;
+          top: 30px;
         }
       }
 
@@ -94,14 +95,6 @@ body {
           }
         }
       }
-    }
-
-    &__mode-button {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: red;
-      cursor: pointer;
     }
   }
 
