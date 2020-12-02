@@ -1,0 +1,43 @@
+.filter {
+  position: absolute;
+  width: 50px;
+  height: 38px;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  filter: url(#gooeyness);
+}
+
+.rect {
+  background: white;
+  display: inline-block;
+  height: 6px;
+  transition: transform 500ms;
+  width: 50px;
+}
+
+.rect + .rect {
+  margin-top: 10px;
+}
+
+.rect:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.rect:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+.burger.active .rect:nth-child(1) {
+  transform: rotate(-45deg) translateX(-11px) translateY(11px);
+}
+
+.burger.active .rect:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.burger.active .rect:nth-child(3) {
+  transform: rotate(-45deg) translateX(11.5px) translateY(-11.5px);
+}

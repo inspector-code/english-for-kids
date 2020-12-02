@@ -11,10 +11,7 @@ export default class Game {
     this.header = new Header(categories)
     console.log(this.header)
     this.menuItems = this.header.menuElements
-    this.container = create('div', 'game-container', [
-      this.header.element,
-      create('div', 'game-title', 'Train & Play'),
-    ])
+    this.container = create('div', 'game-container', this.header.element)
     this.gameField = create('div', 'game-field', null, this.container)
 
     cards.forEach((i) => {
