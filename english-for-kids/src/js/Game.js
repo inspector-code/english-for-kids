@@ -1,18 +1,21 @@
 import create from './helpers/create'
 import { categories, cards } from './data/cards'
 import Card from './moduls/Card/Card'
-import { cardType, mainPage } from './helpers/constans'
+import { cardType, mainPage, gameType } from './helpers/constans'
 import Header from './moduls/Header/Header'
+import Footer from './moduls/Footer/Footer'
 
 export default class Game {
   constructor() {
+    this.appendedGameCards = []
     this.categoriesCards = []
     this.gameCards = []
     this.header = new Header(categories)
-    console.log(this.header)
+    this.gameField = create('div', 'game-field')
+    this.footer = Footer()
     this.menuItems = this.header.menuElements
-    this.container = create('div', 'game-container', this.header.element)
-    this.gameField = create('div', 'game-field', null, this.container)
+    this.container = create('div', 'game-container',
+      [this.header.element, this.gameField])
 
     cards.forEach((i) => {
       const card = new Card(i, cardType.gameCard)
@@ -40,25 +43,36 @@ export default class Game {
         card.changeGameMode()
         card.hideControls()
       })
+
+      if (this.appendedGameCards.length
+        && this.gameCards.some((i) => i.gameMode === gameType.play)) {
+        this.container.append(this.footer)
+      } else {
+        this.footer.remove()
+      }
     }
   }
 
   appendCards = (category) => {
     this.gameField.innerHTML = ''
+    this.appendedGameCards = []
+    this.footer.remove()
     if (!category || (category === mainPage)) {
       this.categoriesCards.forEach((i) => this.gameField.append(i.element))
     } else {
       this.gameCards.forEach((item) => {
         if (item.cardCategory === category) {
+          this.appendedGameCards.push(item)
           this.gameField.append(item.element)
+          if (this.gameCards.some((i) => i.gameMode === gameType.play)) {
+            this.container.append(this.footer)
+          }
         }
       })
     }
   }
 
   init() {
-    console.log(this.gameCards)
-    console.log(this.categoriesCards)
     this.appendCards()
     document.body.append(this.container)
   }

@@ -28,6 +28,7 @@ export default class Card {
       rollButton = create('i', 'material-icons', 'autorenew')
       this.word = word
       this.translation = translation
+      this.soundUrl = sound
 
       const backImg = this.imageElement.cloneNode(true)
       backSide = create('div', 'back', [
@@ -49,7 +50,7 @@ export default class Card {
 
     if (this.cardType === cardType.gameCard) {
       frontSide.addEventListener('click', () => {
-        const audio = new Audio(sound)
+        const audio = new Audio(this.soundUrl)
         if (this.gameMode === gameType.train) {
           audio.play()
         }

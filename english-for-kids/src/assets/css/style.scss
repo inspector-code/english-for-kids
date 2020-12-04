@@ -184,4 +184,30 @@ body {
       }
     }
   }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px;
+
+    &__buttons {
+      display: flex;
+
+      &-start {
+        width: 50px;
+        height: 50px;
+        background: red;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      &-repeat {
+        width: 50px;
+        height: 50px;
+        background: green;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+  }
 }
