@@ -4,12 +4,14 @@ import Card from './moduls/Card/Card'
 import { cardType, mainPage, gameType } from './helpers/constans'
 import Header from './moduls/Header/Header'
 import Footer from './moduls/Footer/Footer'
+import GameMode from './moduls/Game mode/Game-mode'
 
 export default class Game {
   constructor() {
     this.appendedGameCards = []
     this.categoriesCards = []
     this.gameCards = []
+    this.newGame = null
     this.header = new Header(categories)
     this.gameField = create('div', 'game-field')
     this.footer = Footer()
@@ -46,17 +48,38 @@ export default class Game {
 
       if (this.appendedGameCards.length
         && this.gameCards.some((i) => i.gameMode === gameType.play)) {
-        this.container.append(this.footer)
+        this.container.append(this.footer.footerElement)
       } else {
-        this.footer.remove()
+        this.footer.footerElement.remove()
+      }
+
+      if (this.newGame) {
+        this.newGame.clear()
       }
     }
+
+    const gameButtonHandler = () => {
+      this.newGame = new GameMode(this.appendedGameCards, this.footer,
+        gameButtonHandler, this.appendCards)
+      this.footer.buttonText.innerHTML = '<i class="material-icons md-36">replay</i>'
+      this.footer.startGameButton.classList.add('button__circle')
+      this.newGame.sayWord()
+      this.footer.startGameButton.onclick = () => {
+        this.newGame.sayWord()
+      }
+    }
+
+    this.footer.startGameButton.onclick = gameButtonHandler
   }
 
   appendCards = (category) => {
     this.gameField.innerHTML = ''
     this.appendedGameCards = []
-    this.footer.remove()
+    this.footer.footerElement.remove()
+    if (this.newGame) {
+      this.newGame.clear()
+    }
+
     if (!category || (category === mainPage)) {
       this.categoriesCards.forEach((i) => this.gameField.append(i.element))
     } else {
@@ -65,7 +88,7 @@ export default class Game {
           this.appendedGameCards.push(item)
           this.gameField.append(item.element)
           if (this.gameCards.some((i) => i.gameMode === gameType.play)) {
-            this.container.append(this.footer)
+            this.container.append(this.footer.footerElement)
           }
         }
       })

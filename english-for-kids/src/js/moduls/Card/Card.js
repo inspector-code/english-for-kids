@@ -17,7 +17,12 @@ export default class Card {
     this.cardCategory = categoryName || category
     let backSide = null
     let rollButton = null
-    this.imageElement = create('div', 'card__img')
+    if (word) {
+      this.imageElement = create('div', 'card__img', null, null,
+        ['word', word])
+    } else {
+      this.imageElement = create('div', 'card__img')
+    }
     this.imageElement.style.background = `center / cover no-repeat url(${categoryImage || image})`
 
     if (this.cardType === cardType.categoryCard) {

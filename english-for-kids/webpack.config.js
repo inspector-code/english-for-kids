@@ -101,12 +101,16 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: './src/assets/icons/favicon.png',
+          from: './src/assets/icons',
           to: './assets/icons',
         },
         {
           from: './src/assets/img',
           to: './assets/img',
+        },
+        {
+          from: './src/assets/sounds',
+          to: './assets/sounds',
         },
       ],
     }),

@@ -158,6 +158,11 @@ body {
           &-hide {
             height: 100%;
           }
+
+          &-inactive {
+            opacity: .1;
+            cursor: default;
+          }
         }
 
         &__info {
@@ -188,26 +193,12 @@ body {
   .footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 30px 20px;
 
     &__buttons {
+      position: relative;
       display: flex;
-
-      &-start {
-        width: 50px;
-        height: 50px;
-        background: red;
-        border-radius: 50%;
-        cursor: pointer;
-      }
-
-      &-repeat {
-        width: 50px;
-        height: 50px;
-        background: green;
-        border-radius: 50%;
-        cursor: pointer;
-      }
     }
   }
 }
