@@ -135,6 +135,13 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 
+    .no-dif-cards {
+      font-size: 3.5rem;
+      color: #484848;
+      text-align: center;
+      padding: 0 20px;
+    }
+
     .card-container {
       opacity: 1;
       transform: scale(1);
@@ -237,14 +244,26 @@ body {
         justify-content: flex-end;
         margin-bottom: 15px;
 
+        @media (max-width: 850px) {
+          justify-content: center;
+        }
+
         &-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           padding: 10px 20px;
+          text-align: center;
           border: 1px solid white;
           border-radius: 20px;
           color: white;
           cursor: pointer;
           transition: .3s;
           font-weight: bold;
+
+          @media (max-width: 380px) {
+            font-size: 0.8rem;
+          }
 
           &:hover {
             background: white;
@@ -281,6 +300,11 @@ body {
               padding: 15px 15px;
               color: #00a8ff;
               background: rgba(255, 255, 255, 0.8);
+
+              @media (max-width: 850px) {
+                font-size: 0.7rem;
+                padding: 10px 10px;
+              }
             }
           }
 
@@ -299,6 +323,10 @@ body {
           font-size: 1rem;
           text-align: left;
 
+          @media (max-width: 850px) {
+            font-size: 0.6rem;
+          }
+
           tr {
             &:nth-child(even) {
               color: #00a8ff;
@@ -312,6 +340,11 @@ body {
 
             td {
               padding: 7px 15px;
+
+              @media (max-width: 850px) {
+                padding: 7px 10px;
+                font-size: 0.6rem;
+              }
             }
           }
         }

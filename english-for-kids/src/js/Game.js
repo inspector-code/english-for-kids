@@ -16,7 +16,7 @@ import About from './moduls/About/about'
 
 export default class Game {
   constructor() {
-    this.stat = new Statistics()
+    this.stat = new Statistics(this.appendCards)
     this.appendedGameCards = []
     this.categoriesCards = []
     this.gameCards = []
@@ -96,6 +96,20 @@ export default class Game {
       })
     } else if (category === statistics) {
       this.gameField.append(this.stat.stat)
+    } else if (Array.isArray(category)) {
+      if (category.length === 0) {
+        const noCards = create('div', 'no-dif-cards', 'No difficult words')
+        animatedAppend(noCards, this.gameField, 'card-container-hide', 50)
+      }
+      category.forEach((el) => {
+        const findElement = this.gameCards.find((w) => w.word === el)
+        this.appendedGameCards.push(findElement)
+        animatedAppend(findElement.element, this.gameField, 'card-container-hide', 50)
+        if (this.gameCards.some((i) => i.gameMode === gameType.play)) {
+          animatedAppend(this.footer.footerElement, this.container, 'footer-hide', 50)
+        }
+      })
+      console.log(this.appendedGameCards)
     } else {
       this.gameCards.forEach((item) => {
         if (item.cardCategory === category) {

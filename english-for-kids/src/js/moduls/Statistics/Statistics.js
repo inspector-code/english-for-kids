@@ -4,7 +4,7 @@ import { statisticTypes, sortField } from '../../helpers/constans'
 import { set, get, del } from '../../helpers/storage'
 
 export default class Statistics {
-  constructor() {
+  constructor(appendCards) {
     const theadCategories = create('th', null, 'Categories')
     const theadWords = create('th', null, 'Words')
     const theadTranslation = create('th', null, 'Translation')
@@ -24,6 +24,7 @@ export default class Statistics {
     this.stat = create('div', 'statistics', [tableButtons, table])
     this.savedStat = get('statistics')
     this.tableRows = []
+    this.difficultWords = []
 
     cards.forEach(({ category, word, translation }) => {
       const tbodyCategory = create('td', null, category)
@@ -100,6 +101,23 @@ export default class Statistics {
     resetButton.onclick = () => {
       this.resetStat()
     }
+
+    difficultWordsButton.onclick = () => {
+      this.sortDifficultWords()
+      appendCards(this.difficultWords)
+    }
+  }
+
+  sortDifficultWords() {
+    const arr = [...this.tableRows]
+    arr.sort((a, b) => {
+      const digA = +a.proc.innerHTML
+      const digB = +b.proc.innerHTML
+      return digA - digB
+    })
+    const final = arr.filter((i) => +i.proc.innerHTML > 0 && +i.proc.innerHTML !== 100)
+    final.splice(8)
+    final.forEach((w) => this.difficultWords.push(w.word))
   }
 
   resetStat() {
