@@ -1,13 +1,18 @@
 import Star from './star element/star'
 import shuffle from '../../helpers/array-shuffle'
-import { starColor, soundType, statisticTypes } from '../../helpers/constans'
+import {
+  starColor,
+  soundType,
+  statisticTypes,
+  mainPage,
+} from '../../helpers/constans'
 import Victory from './victory modal/victory'
 import Loose from './loose modal/loose-modal'
 import animatedAppend from '../../helpers/animated-append'
 
 export default class GameMode {
   constructor(gameCards, { footerIcons, startGameButton, buttonText },
-    gameButtonHandler, appendCards, updateStat) {
+    gameButtonHandler, appendCards, updateStat, activeMenu) {
     this.gameCards = shuffle(gameCards)
     this.wordNumber = 0
     this.starField = footerIcons
@@ -44,6 +49,7 @@ export default class GameMode {
         setTimeout(() => {
           this.clear()
           appendCards()
+          activeMenu(mainPage)
         }, 10000)
         return
       }

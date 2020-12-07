@@ -70,7 +70,7 @@ export default class Game {
 
     const gameButtonHandler = () => {
       this.newGame = new GameMode(this.appendedGameCards, this.footer,
-        gameButtonHandler, this.appendCards, this.stat.updateStat)
+        gameButtonHandler, this.appendCards, this.stat.updateStat, this.header.activeMenuItem)
       this.footer.buttonText.innerHTML = '<i class="material-icons md-36">replay</i>'
       this.footer.startGameButton.classList.add('button__circle')
       this.newGame.sayWord()

@@ -74,7 +74,7 @@ export default class Header {
     this.activeMenuItem(mainPage)
   }
 
-  activeMenuItem(item) {
+  activeMenuItem = (item) => {
     this.menuElements.forEach((i) => {
       i.element.classList.remove('header__menu-burger-active')
     })
