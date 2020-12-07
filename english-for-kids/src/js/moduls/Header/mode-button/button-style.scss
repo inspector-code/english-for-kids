@@ -13,6 +13,11 @@ $c-theme: #00a8ff;
   user-select: none;
   font-size: 1rem;
   will-change: transform;
+  font-weight: bold;
+
+  @media (max-width: 380px) {
+    font-size: 0.8rem;
+  }
 
   .Switcher__checkbox:checked + & {
     animation-name: r-p;

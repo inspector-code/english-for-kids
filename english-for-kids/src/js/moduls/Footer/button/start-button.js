@@ -6,7 +6,7 @@ export default function startButton() {
   const buttonText = create('div', 'footer__buttons-start-container', tick)
   const button = create('div', 'footer__buttons-start', buttonText)
 
-  buttonText.innerHTML = 'Start game'
+  buttonText.innerHTML = 'START GAME'
 
   return { startGameButton: button, buttonText }
 }

@@ -11,7 +11,7 @@ export default class Header {
     const burgerMenu = create('div', 'header__menu-burger header__menu-burger-hide',
       create('div', 'header__menu-burger__box', menuList))
     const headerMenuContainer = create('div', 'header__menu', [burgerButtonContainer, burgerMenu])
-    const menuItems = ['Main Page']
+    const menuItems = ['Main Page', 'Statistics']
 
     this.gameModeButton = modeCheckbox
     this.element = create('div', 'header', [headerMenuContainer, modeSwitcherElement])
@@ -37,7 +37,31 @@ export default class Header {
     }
 
     menuItems.forEach((i) => {
-      const el = create('li', 'header__menu-burger__box-list-item', i)
+      let currentIcon = null
+
+      if (i === 'Main Page') {
+        currentIcon = create('i', 'material-icons', 'home')
+      } else if (i === 'Statistics') {
+        currentIcon = create('i', 'material-icons', 'timeline')
+      } else if (i === 'Action (set A)') {
+        currentIcon = create('i', 'material-icons', 'flight')
+      } else if (i === 'Action (set B)') {
+        currentIcon = create('i', 'material-icons', 'directions_bike')
+      } else if (i === 'Action (set C)') {
+        currentIcon = create('i', 'material-icons', 'directions_car')
+      } else if (i === 'Adjective') {
+        currentIcon = create('i', 'material-icons', 'child_care')
+      } else if (i === 'Animal (set A)') {
+        currentIcon = create('i', 'material-icons', 'pets')
+      } else if (i === 'Animal (set B)') {
+        currentIcon = create('i', 'material-icons', 'bug_report')
+      } else if (i === 'Clothes') {
+        currentIcon = create('i', 'material-icons', 'accessibility')
+      } else if (i === 'Emotion') {
+        currentIcon = create('i', 'material-icons', 'sentiment_very_satisfied')
+      }
+
+      const el = create('li', 'header__menu-burger__box-list-item', [currentIcon, i])
       el.onclick = () => {
         this.activeMenuItem(i)
         closeMenu()

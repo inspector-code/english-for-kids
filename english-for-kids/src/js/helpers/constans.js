@@ -18,4 +18,21 @@ export const soundType = {
   fail: 'fail',
 }
 
+export const statisticTypes = {
+  trained: 'trained',
+  correct: 'correct',
+  incorrect: 'incorrect',
+}
+
+export const sortField = {
+  categories: 'Categories',
+  words: 'Words',
+  translation: 'Translation',
+  trained: 'Trained',
+  correct: 'Correct',
+  incorrect: 'Incorrect',
+  proc: '%',
+}
+
 export const mainPage = 'Main Page'
+export const statistics = 'Statistics'

@@ -1,6 +1,6 @@
 import create from '../../helpers/create'
 import { cards } from '../../data/cards'
-import { cardType, gameType } from '../../helpers/constans'
+import { cardType, gameType, statisticTypes } from '../../helpers/constans'
 
 export default class Card {
   constructor({
@@ -11,7 +11,7 @@ export default class Card {
     translation = null,
     image = null,
     sound = null,
-  }, type) {
+  }, type, updateStat = null) {
     this.gameMode = gameType.train
     this.cardType = type
     this.cardCategory = categoryName || category
@@ -57,6 +57,7 @@ export default class Card {
       frontSide.addEventListener('click', () => {
         const audio = new Audio(this.soundUrl)
         if (this.gameMode === gameType.train) {
+          updateStat(this.word, statisticTypes.trained)
           audio.play()
         }
       })

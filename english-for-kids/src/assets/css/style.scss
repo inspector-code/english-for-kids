@@ -22,6 +22,7 @@
 
 body {
   background: url('../img/Background/background.svg');
+  font-family: 'Open Sans', sans-serif;
 }
 
 .game-container {
@@ -61,6 +62,16 @@ body {
 
         &-active {
           font-weight: bold;
+
+          &:after {
+            content: '';
+            display: block;
+            margin-left: 15px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: white;
+          }
         }
 
         &-hide {
@@ -75,32 +86,48 @@ body {
         &__box {
           position: fixed;
           left: 0;
-          width: 350px;
+          width: 320px;
           height: 100%;
           background: #2983ae;
           color: white;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           transition: .7s;
           box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
+          i {
+            margin-right: 15px;
+          }
+
           &-list {
 
             &-item {
-              font-size: 1.3rem;
-              margin: 15px 0;
+              display: flex;
+              align-items: center;
+              font-size: 1.5rem;
+              margin: 20px 0;
               cursor: pointer;
+
+              &:hover:not(.header__menu-burger-active) {
+                opacity: 0.8;
+              }
+
+              &:nth-child(2) {
+                margin-bottom: 45px;
+              }
             }
+          }
+
+          &-stat {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
           }
         }
       }
     }
-  }
-
-  .game-title {
-    font-size: 25px;
-    padding: 0 10px;
   }
 
   .game-field {
@@ -109,11 +136,18 @@ body {
     justify-content: center;
 
     .card-container {
+      opacity: 1;
+      transform: scale(1);
       width: 250px;
       height: 250px;
       margin: 20px 20px;
       cursor: pointer;
       perspective: 1000px;
+      transition: .4s;
+
+      &-hide {
+        transform: scale(0.5);
+      }
 
       &:hover .card .front, &:hover .card .back {
         box-shadow: 0 0 15px rgba(0,0,0,0.6);
@@ -173,8 +207,13 @@ body {
           padding: 0 20px;
           border-top: 1px solid rgba(0,0,0,0.1);
 
+          &-title {
+            color: #5d5d5d;
+            font-weight: bold;
+          }
+
           &-item {
-            line-height: 0;
+            color: #07577e;
 
             i {
               transform: rotate(0deg);
@@ -188,17 +227,119 @@ body {
         }
       }
     }
+
+    .statistics {
+      width: 100%;
+      margin: 20px 20px;
+
+      &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+
+        &-button {
+          padding: 10px 20px;
+          border: 1px solid white;
+          border-radius: 20px;
+          color: white;
+          cursor: pointer;
+          transition: .3s;
+          font-weight: bold;
+
+          &:hover {
+            background: white;
+            color: #00a8ff;
+          }
+
+          &:active {
+            background: transparent;
+            color: white;
+          }
+
+          & + .statistics__buttons-button {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      &__table {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 6px rgba(0,0,0,0.2);
+
+        thead {
+          text-align: left;
+          font-size: 1.3rem;
+          font-weight: bold;
+          cursor: pointer;
+
+          tr {
+
+            th {
+              padding: 15px 15px;
+              color: #00a8ff;
+              background: rgba(255, 255, 255, 0.8);
+            }
+          }
+
+          .ascend:after {
+            font-size: 0.9rem;
+            content: '▼';
+          }
+
+          .descend:after {
+            font-size: 0.9rem;
+            content: '▲';
+          }
+        }
+
+        tbody {
+          font-size: 1rem;
+          text-align: left;
+
+          tr {
+            &:nth-child(even) {
+              color: #00a8ff;
+              background: rgba(255, 255, 255, 0.8);
+            }
+
+            &:nth-child(odd) {
+              color: white;
+              background: #22b1fc;
+            }
+
+            td {
+              padding: 7px 15px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .footer {
+    opacity: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 20px;
+    transition: .5s;
+
+    &-hide {
+      opacity: 0;
+    }
 
     &__buttons {
       position: relative;
       display: flex;
+      margin-right: 20px;
+    }
+
+    &__icons {
+      display: flex;
+      overflow: hidden;
     }
   }
 }

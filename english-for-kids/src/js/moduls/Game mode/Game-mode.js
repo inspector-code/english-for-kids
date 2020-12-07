@@ -1,13 +1,13 @@
 import Star from './star element/star'
 import shuffle from '../../helpers/array-shuffle'
-import { starColor, soundType } from '../../helpers/constans'
+import { starColor, soundType, statisticTypes } from '../../helpers/constans'
 import Victory from './victory modal/victory'
 import Loose from './loose modal/loose-modal'
 import animatedAppend from '../../helpers/animated-append'
 
 export default class GameMode {
   constructor(gameCards, { footerIcons, startGameButton, buttonText },
-    gameButtonHandler, appendCards) {
+    gameButtonHandler, appendCards, updateStat) {
     this.gameCards = shuffle(gameCards)
     this.wordNumber = 0
     this.starField = footerIcons
@@ -26,7 +26,7 @@ export default class GameMode {
 
     this.clickHandler = (e) => {
       if (this.wordNumber + 2 > this.gameCards.length) {
-        this.starField.append(Star(starColor.yellow))
+        this.starField.prepend(Star(starColor.yellow))
         e.target.classList.add('card__img-inactive')
         document.body.classList.add('scroll-lock')
 
@@ -49,18 +49,20 @@ export default class GameMode {
       }
 
       if (e.target.dataset.word === this.gameCards[this.wordNumber].word) {
-        this.starField.append(Star(starColor.yellow))
+        this.starField.prepend(Star(starColor.yellow))
         e.target.classList.add('card__img-inactive')
         e.target.removeEventListener('click', this.clickHandler)
         playSound(soundType.bingo)
         this.wordNumber += 1
+        updateStat(e.target.dataset.word, statisticTypes.correct)
         setTimeout(() => {
           this.sayWord()
         }, 2000)
       } else {
         this.mistakesCounter += 1
-        this.starField.append(Star(starColor.grey))
+        this.starField.prepend(Star(starColor.grey))
         playSound(soundType.fail)
+        updateStat(this.gameCards[this.wordNumber].word, statisticTypes.incorrect)
       }
     }
 
@@ -82,10 +84,12 @@ export default class GameMode {
     this.startButtonText.innerHTML = 'Start game'
     this.startButton.classList.remove('button__circle')
     document.body.classList.remove('scroll-lock')
-    if (this.mistakesCounter) {
-      this.looseModal.remove()
-    } else {
-      this.victoryModal.remove()
+    if (this.wordNumber + 2 > this.gameCards.length) {
+      if (this.mistakesCounter) {
+        this.looseModal.remove()
+      } else {
+        this.victoryModal.remove()
+      }
     }
     this.mistakesCounter = 0
   }

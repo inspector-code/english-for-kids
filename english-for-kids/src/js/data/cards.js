@@ -335,10 +335,10 @@ const cards = [
   },
   {
     category: 'Animal (set B)',
-    word: 'Fish',
-    translation: 'Рыба',
-    image: './assets/img/Animal_B/fish.png',
-    sound: './assets/sounds/Animal_B/fish.mp3',
+    word: 'Raccoon',
+    translation: 'Енот',
+    image: './assets/img/Animal_B/raccoon.png',
+    sound: './assets/sounds/Animal_B/raccoon.mp3',
   },
   {
     category: 'Animal (set B)',

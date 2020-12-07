@@ -1,17 +1,27 @@
 import create from './helpers/create'
 import { categories, cards } from './data/cards'
 import Card from './moduls/Card/Card'
-import { cardType, mainPage, gameType } from './helpers/constans'
+import {
+  cardType,
+  mainPage,
+  gameType,
+  statistics,
+} from './helpers/constans'
 import Header from './moduls/Header/Header'
 import Footer from './moduls/Footer/Footer'
 import GameMode from './moduls/Game mode/Game-mode'
+import animatedAppend from './helpers/animated-append'
+import Statistics from './moduls/Statistics/Statistics'
+import About from './moduls/About/about'
 
 export default class Game {
   constructor() {
+    this.stat = new Statistics()
     this.appendedGameCards = []
     this.categoriesCards = []
     this.gameCards = []
     this.newGame = null
+    this.about = About()
     this.header = new Header(categories)
     this.gameField = create('div', 'game-field')
     this.footer = Footer()
@@ -20,7 +30,7 @@ export default class Game {
       [this.header.element, this.gameField])
 
     cards.forEach((i) => {
-      const card = new Card(i, cardType.gameCard)
+      const card = new Card(i, cardType.gameCard, this.stat.updateStat)
       this.gameCards.push(card)
     })
 
@@ -48,7 +58,7 @@ export default class Game {
 
       if (this.appendedGameCards.length
         && this.gameCards.some((i) => i.gameMode === gameType.play)) {
-        this.container.append(this.footer.footerElement)
+        animatedAppend(this.footer.footerElement, this.container, 'footer-hide', 50)
       } else {
         this.footer.footerElement.remove()
       }
@@ -60,7 +70,7 @@ export default class Game {
 
     const gameButtonHandler = () => {
       this.newGame = new GameMode(this.appendedGameCards, this.footer,
-        gameButtonHandler, this.appendCards)
+        gameButtonHandler, this.appendCards, this.stat.updateStat)
       this.footer.buttonText.innerHTML = '<i class="material-icons md-36">replay</i>'
       this.footer.startGameButton.classList.add('button__circle')
       this.newGame.sayWord()
@@ -81,14 +91,18 @@ export default class Game {
     }
 
     if (!category || (category === mainPage)) {
-      this.categoriesCards.forEach((i) => this.gameField.append(i.element))
+      this.categoriesCards.forEach((i) => {
+        animatedAppend(i.element, this.gameField, 'card-container-hide', 50)
+      })
+    } else if (category === statistics) {
+      this.gameField.append(this.stat.stat)
     } else {
       this.gameCards.forEach((item) => {
         if (item.cardCategory === category) {
           this.appendedGameCards.push(item)
-          this.gameField.append(item.element)
+          animatedAppend(item.element, this.gameField, 'card-container-hide', 50)
           if (this.gameCards.some((i) => i.gameMode === gameType.play)) {
-            this.container.append(this.footer.footerElement)
+            animatedAppend(this.footer.footerElement, this.container, 'footer-hide', 50)
           }
         }
       })
@@ -97,6 +111,6 @@ export default class Game {
 
   init() {
     this.appendCards()
-    document.body.append(this.container)
+    document.body.append(this.container, this.about)
   }
 }
