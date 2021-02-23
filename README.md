@@ -1,2 +1,2 @@
-# inspector-code-JS2020Q3
-Private repository for @inspector-code
+# App for learning English for kids
+Deploy: https://english-for-kids-ic.netlify.app/
